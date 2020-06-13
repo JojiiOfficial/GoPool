@@ -28,6 +28,12 @@ func New(total int, workers int, action Action) *ThreadPool {
 		workers = total
 	}
 
+	// Prevent using zero
+	// or negative workers
+	if workers <= 0 {
+		workers = 1
+	}
+
 	pool := &ThreadPool{
 		wg:          &sync.WaitGroup{},
 		Total:       total,
